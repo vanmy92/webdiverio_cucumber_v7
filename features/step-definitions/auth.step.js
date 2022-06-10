@@ -2,6 +2,7 @@ import { Given, When, Then } from "@wdio/cucumber-framework";
 import faker from "faker";
 import authPage from "../pageobjects/auth.page";
 import HomePage from "../pageobjects/home.page";
+import utils from "../utils/Utils";
 //import allureReporter from '@wdio/allure-reporter'
 
 const delay = ms => new Promise(
@@ -44,8 +45,15 @@ Given(/^I am on the Sign In Page$/, async () => {
   await HomePage.navigateToLoginPage();
 });
 
-Given('Login using newly created dynamic credentials', async () =>{
+Given(/^Login using newly created (dynamic|static) credentials$/, async (credentialType) => {
 
-    await authPage.signIn(global.ShareVariable.email);
+  let email = "";
+  if (credentialType == "dynamic") {
+    email = utils.dynamicData.email;
+    console.log("utils.dynamicData.email " + utils.dynamicData.email);
+  } else {
+    email = utils.staticData.email;
+  }
+  await authPage.signIn(email);
 
 });

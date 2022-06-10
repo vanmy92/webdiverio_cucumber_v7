@@ -13,7 +13,7 @@ Then('I shall validate shopping cart as below', async(table)=>{
 
 });
 
-Then('I shall be able to Buy the product', async()=>{
+// Then('I shall be able to Buy the product', async()=>{
 
     
-});
+// });

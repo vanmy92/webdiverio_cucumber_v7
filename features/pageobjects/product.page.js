@@ -1,4 +1,5 @@
 import { address } from "faker/lib/locales/az";
+import commonPage from "./common.page";
 
 class ProductPage{
 
@@ -78,7 +79,7 @@ class ProductPage{
       }
     
       get linkCheck() {
-        return $("#HOOK_PAYMENT div div p.payment_module a.cheque");
+        return $(".cheque");
       }
     
       get linkBankTransfer() {
@@ -190,9 +191,65 @@ class ProductPage{
     buyProduct =async ()=>{
        await this.btnContinueCheckoutSummary.click();
 
+       await commonPage.vaerifyPageHeading("ADDRESSES");
+
       //address validation
       
+      await expect(
+
+        await this.txt_DeliveryAddressFirstNameLastName.getText()
+      ).toEqual(
+        global.SharedVariable.address.firstName +
+        " " + 
+          global.SharedVariable.address.lastName
+      );
+
+      await expect( await this.txt_DeliveryAddressCompany.getText()).toEqual(
+        global.SharedVariable.address.company
+      );
        
+      await expect(
+
+        await this.txt_DeliveryAdd_Add1_Add2.getText()
+      ).toEqual(
+        global.SharedVariable.address.address1 +
+        " " + 
+          global.SharedVariable.address.address2
+      );
+
+      // navigate to shipping page
+
+      await this.btnContinueCheckout.click();
+      await commonPage.vaerifyPageHeading("SHIPPING");
+
+      // validate pop up when not checked for Terns and Services
+      await this.btnContinueCheckout.click();
+
+      await expect(await this.txt_ErrorModal.isDisplayed()).toBeTruthy();
+
+      await expect(await this.txt_ErrorModal.getText()).toEqual(
+        "You must agree to the terms of service before continuting."
+      );
+      
+      //close modal
+      await this. btnCloseModalError.click();
+
+      // clicl terms $ condition checkbox
+      await $("#cgv").click();
+
+      await this.btnContinueCheckout.click();
+
+      await commonPage.vaerifyPageHeading("PLEASE CHOOSE YOUR PAYMENT METHOD");
+      
+      await this.linkCheck.click();
+
+      await commonPage.vaerifyPageHeading("ORDER SUMMARY");
+
+      await this.btnContinueCheckout.click();
+
+      await expect(await this.alertPaymentSuccess.isDisplayed()).toBeTruthy();
+
+      
 
     };
     
