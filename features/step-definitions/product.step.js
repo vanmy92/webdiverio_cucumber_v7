@@ -1,10 +1,8 @@
-import { Given, When, Then } from "@wdio/cucumber-framework";
-import productPage from '../pageobjects/product.page'
-Given('I add below products to cart', async(table)=>{
+import { Given, When, Then } from "@cucumber/cucumber";
+import productPage from "../pageobjects/product.page";
 
-    await productPage.addProducts(table);
-
-
+Given(/^I add below products to cart$/, async (table) => {
+  await productPage.addProducts(table);
 });
 
 Then('I shall validate shopping cart as below', async(table)=>{
@@ -13,7 +11,7 @@ Then('I shall validate shopping cart as below', async(table)=>{
 
 });
 
-// Then('I shall be able to Buy the product', async()=>{
-
+Then('I shall be able to Buy the product', async()=>{
+    await productPage.buyProduct();
     
-// });
+});

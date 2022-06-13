@@ -1,4 +1,4 @@
- import utils from '../utils/Utils'
+import utils from '../utils/Utils'
 
 class MyAccount {
   //  Page Objects
@@ -60,8 +60,6 @@ class MyAccount {
     expect(companyAddress).toBe(utils.dynamicData.address.company);
     expect(address1).toBe(utils.dynamicData.address.address1);
     expect(address2).toBe(utils.dynamicData.address.address2);
-
-
   };
 }
 

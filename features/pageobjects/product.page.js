@@ -96,20 +96,23 @@ class ProductPage{
 
         const tableRow=table.hashes();
 
-        for(const element of table){
+        for(const element of tableRow){
             const btnCategory =  $(`//div[@id='block_top_menu']/ul/li/a[contains(text(),'${element.category}')]`);
-            await btnCategory.click();
+            await btnCategory.click(); 
 
-            //Subcategory
-            this.btnSubcategory.forEach(async (value)=>{
+            // //Subcategory
+            // this.btnSubcategory.forEach(async (value)=>{
 
-                const subCat= await value.getText();
-                if(subCat===element.subCategory){
-                    await value.click();
-                    return;
-                }
-            });
+            //     const subCat= await value.getText();
+            //     if(subCat===element.subCategory){
+            //         await value.click();
+            //         return;
+            //     }
+            // });
 
+            const btnSubCategory = $(`//*[@class='subcategory-image']/a[contains(@title,'${element.subCategory}')]`);
+
+            await btnSubCategory.click();
             //select product
             this.txtProductTitle.forEach(async(value)=>{
 
