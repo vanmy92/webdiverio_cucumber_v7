@@ -15,3 +15,6 @@ Then('I shall be able to Buy the product', async()=>{
     await productPage.buyProduct();
     
 });
+Then(/^I shall be able to Buy using (.*) payment$/, async (paymentType) => {
+    console.log("TBA....");
+  });

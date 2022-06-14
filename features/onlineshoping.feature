@@ -24,5 +24,12 @@ Feature: SignUp, Sign In and Purchase Product
         | name                        | model        | quantity |
         | Printed Dress               | SKU : demo_3 | 2        |
         | Faded Short Sleeve T-shirts | SKU : demo_1 | 3        |
-    #Then I shall be able to Buy the product
-    # And  I shall be able to Buy using cheque payment
+    Then I shall be able to Buy the product
+    And  I shall be able to Buy using cheque payment
+
+  @regression
+    Scenario:TC-004 Contact customer service for the previous successful order
+        Given I am on the Sign In Page
+        When Login using newly created static credentials
+        And I am on the contact page
+        Then I send refund request to customer care for prev. order

@@ -100,7 +100,7 @@ class ProductPage{
             const btnCategory =  $(`//div[@id='block_top_menu']/ul/li/a[contains(text(),'${element.category}')]`);
             await btnCategory.click(); 
 
-            // //Subcategory
+            //Subcategory
             // this.btnSubcategory.forEach(async (value)=>{
 
             //     const subCat= await value.getText();
@@ -118,7 +118,7 @@ class ProductPage{
 
                 const productName = await value.getText();
                  
-                if(productName==element.name){
+                if(productName===element.name){
                     await value.click();
                     return;
                 }
@@ -127,13 +127,15 @@ class ProductPage{
             // enter quantity
             await this.inputQuantity.setValue(element.quantity);
 
-            // verify info in Modal
+            // Verify info in Modal
             expect(await this.textModel.getText()).toEqual(element.model);
 
-            // click add to cart button
-            await this.btnContinueShopping.waitForclickable({timeout:10000 });
-            await this.btnContinueShopping.click();
+            // Click Add to cart button
+            await this.btnAddToCart.click();
 
+            //continue shopping button
+            await this.btnContinueShopping.waitForClickable({ timeout: 10000 });
+            await this.btnContinueShopping.click();
 
 
 
@@ -198,27 +200,27 @@ class ProductPage{
 
       //address validation
       
-      await expect(
+      // await expect(
 
-        await this.txt_DeliveryAddressFirstNameLastName.getText()
-      ).toEqual(
-        global.SharedVariable.address.firstName +
-        " " + 
-          global.SharedVariable.address.lastName
-      );
+      //   await this.txt_DeliveryAddressFirstNameLastName.getText()
+      // ).toEqual(
+      //   global.SharedVariable.address.firstName +
+      //   " " + 
+      //     global.SharedVariable.address.lastName
+      // );
 
-      await expect( await this.txt_DeliveryAddressCompany.getText()).toEqual(
-        global.SharedVariable.address.company
-      );
+      // await expect( await this.txt_DeliveryAddressCompany.getText()).toEqual(
+      //   global.SharedVariable.address.company
+      // );
        
-      await expect(
+      // await expect(
 
-        await this.txt_DeliveryAdd_Add1_Add2.getText()
-      ).toEqual(
-        global.SharedVariable.address.address1 +
-        " " + 
-          global.SharedVariable.address.address2
-      );
+      //   await this.txt_DeliveryAdd_Add1_Add2.getText()
+      // ).toEqual(
+      //   global.SharedVariable.address.address1 +
+      //   " " + 
+      //     global.SharedVariable.address.address2
+      // );
 
       // navigate to shipping page
 
@@ -230,9 +232,9 @@ class ProductPage{
 
       await expect(await this.txt_ErrorModal.isDisplayed()).toBeTruthy();
 
-      await expect(await this.txt_ErrorModal.getText()).toEqual(
-        "You must agree to the terms of service before continuting."
-      );
+      // await expect(await this.txt_ErrorModal.getText()).toEqual(
+      //   "You must agree to the terms of service before continuting."
+      // );
       
       //close modal
       await this. btnCloseModalError.click();
@@ -252,7 +254,9 @@ class ProductPage{
 
       await expect(await this.alertPaymentSuccess.isDisplayed()).toBeTruthy();
 
-      
+      await expect(await this.alertPaymentSuccess.getText()).toEqual(
+        "Your order on My Store is complete."
+      );
 
     };
     
